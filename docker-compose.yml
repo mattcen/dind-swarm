@@ -9,13 +9,34 @@ services:
     privileged: true
     volumes:
       -  ./certs:/certs
+      - ./docker-daemon.json:/etc/docker/daemon.json
     ports:
       - "12376:2376"
   node2:
     hostname: node2
     image: docker:dind
     privileged: true
+    volumes:
+      - ./docker-daemon.json:/etc/docker/daemon.json
   node3:
     hostname: node3
     image: docker:dind
     privileged: true
+    volumes:
+      - ./docker-daemon.json:/etc/docker/daemon.json
+  registry:
+    restart: always
+    image: registry:2
+    ports:
+      - 5000:5000
+    #environment:
+    #  REGISTRY_HTTP_TLS_CERTIFICATE: /certs/domain.crt
+    #  REGISTRY_HTTP_TLS_KEY: /certs/domain.key
+    #  REGISTRY_AUTH: htpasswd
+    #  REGISTRY_AUTH_HTPASSWD_PATH: /auth/htpasswd
+    #  REGISTRY_AUTH_HTPASSWD_REALM: Registry Realm
+    volumes:
+      - ./registry-config.yml:/etc/docker/registry/config.yml
+    #  - /path/data:/var/lib/registry
+    #  - /path/certs:/certs
+    #  - /path/auth:/auth
