@@ -5,7 +5,7 @@ nodes=(node{1,2,3})
 cleanup(){
   unset DOCKER_TLS_VERIFY DOCKER_CERT_PATH DOCKER_HOST
   destroy_swarm "${nodes[@]}"
-  docker-compose down -v
+  docker-compose down
 }
 trap 'cleanup' 0 INT TERM QUIT
 
