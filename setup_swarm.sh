@@ -43,4 +43,4 @@ create_swarm "${nodes[@]}"
 export DOCKER_TLS_VERIFY=yes
 export DOCKER_CERT_PATH=$PWD/certs
 export DOCKER_HOST=tcp://localhost:12376
-bash
+"$SHELL"
