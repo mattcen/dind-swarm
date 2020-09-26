@@ -1,0 +1,21 @@
+version: "3.8"
+
+services:
+  node1:
+    hostname: node1
+    image: docker:dind
+    environment:
+      DOCKER_TLS_CERTDIR: /certs
+    privileged: true
+    volumes:
+      -  ./certs:/certs
+    ports:
+      - "12376:2376"
+  node2:
+    hostname: node2
+    image: docker:dind
+    privileged: true
+  node3:
+    hostname: node3
+    image: docker:dind
+    privileged: true
