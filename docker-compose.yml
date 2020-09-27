@@ -26,11 +26,19 @@ services:
       - ./docker-daemon.json:/etc/docker/daemon.json
   registry:
     image: registry:2
+    environment:
+      REGISTRY_PROXY_REMOTEURL: https://registry-1.docker.io
     ports:
       - 5000:5000
     volumes:
-      - ./registry-config.yml:/etc/docker/registry/config.yml
       - registry:/var/lib/registry
+  proxy:
+    hostname: proxy
+    image: nginx
+    ports:
+      - 8080:8080
+    volumes:
+      - ./nginx-default.conf:/etc/nginx/conf.d/default.conf
 
 volumes:
   registry:
